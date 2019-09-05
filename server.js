@@ -1,6 +1,7 @@
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var bodyParser = require('body-parser')
 
 
 var axios = require("axios");
@@ -13,6 +14,7 @@ var PORT = 3000;
 
 // Initialize Express
 var app = express();
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/sportsnews";
 
 
 
