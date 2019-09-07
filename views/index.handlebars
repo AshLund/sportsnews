@@ -1,11 +1,16 @@
-<h1> NFL News </h1>
+<h1> NFL News </h1> 
+<a href="/saved"> View Your Saved Articles </a>
+<hr>
 {{#each headlines}}
 <div id="articles">
-    <h3> {{title}} </h3>
+    <h5> {{title}} </h5>
 </div>
 
-<p> {{summary}}</p>
+<p> {{summary}}
 <a href ={{link}}> Read More! </a>
+</p>
+ <button class="btn btn-success save" data-id="{{id}}"> Save this article! </button>
+ <br>
+ <br>
 {{/each}}
 
-Hello!!

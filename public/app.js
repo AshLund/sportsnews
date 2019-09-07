@@ -1,8 +1,28 @@
-$.getJSON("/headlines", function(data) {
-    for (var i = 0; i <10; i++) {
+// $.getJSON("/headlines", function(data) {
+//     for (var i = 0; i <10; i++) {
 
-    }
-  });
+//     }
+//   });
+
+$(".save").on("click", function(event) {
+    event.preventDefault()
+    id = $(this).attr("data-id")
+    saveArticle()
+})
+
+function saveArticle(){
+    $.ajax({
+        method: "PUT",
+        url: "/articles/" + id,
+        data: {
+            saved: true
+        }
+    }).then(function() {
+        location.reload()
+    })
+}
+
+
 
 // $(document).on("click", "p", function () {
 //     $("#notes").empty();

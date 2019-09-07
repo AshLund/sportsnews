@@ -1,0 +1,15 @@
+<h1> Saved NFL Articles </h1>
+{{#each headlines}}
+{{#if saved}}
+<div id="articles">
+    <h5> {{title}} </h5>
+</div>
+
+<p> {{summary}}
+<a href ={{link}}> Read More! </a>
+</p>
+ <button class="btn btn-success delete" data-id="{{id}}"> Delete this article </button>
+ {{/if}}
+{{/each}}
+
+Hello!

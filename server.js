@@ -39,7 +39,7 @@ mongoose.connect("mongodb://localhost/sportsnews", { useNewUrlParser: true });
 
 app.get("/scrape", function(req, res) {
   
-  axios.get("http://www.espn.com").then(function(response) {
+  axios.get("http://www.espn.com/nfl").then(function(response) {
  
     var $ = cheerio.load(response.data);
 
@@ -77,14 +77,19 @@ app.get("/scrape", function(req, res) {
 
 app.get('/', function(req, res, next) {
   db.Headline.find(function(err, dbHeadline) {
-    res.render('index', {headlines: dbHeadline });
+    res.render('index', {title: "Home", headlines: dbHeadline });
 });
 });
 
+app.get('/saved', function(req, res, next) {
+  db.Headline.find(function(err, dbHeadline) {
+    res.render('saved', {title: "Saved", headlines: dbHeadline });
+});
+});
 
 
 app.get("/headlines", function(req, res) {
-  db.Headline.find({})
+  db.Headline.find({}).limit(20)
   .then(function(dbHeadline) {
     res.json(dbHeadline)
   })
@@ -123,8 +128,13 @@ app.post("/headlines/:id", function(req, res) {
 
 });
 
+app.put("/articles/:id", function(req, res) {
+  db.Article.update({ _id: req.params.id },{ saved: req.body.saved})  
+  .then(function(data) {
+    res.json(data);
+  });
+});
 
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
 });
-
