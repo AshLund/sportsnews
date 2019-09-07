@@ -1,7 +1,7 @@
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-var bodyParser = require('body-parser')
+
 
 
 var axios = require("axios");
@@ -33,7 +33,7 @@ mongoose.connect("mongodb://localhost/sportsnews", { useNewUrlParser: true });
 
 app.get("/scrape", function(req, res) {
   
-  axios.get("http://www.espn.com/nfl").then(function(response) {
+  axios.get("http://www.espn.com").then(function(response) {
  
     var $ = cheerio.load(response.data);
 
@@ -42,13 +42,19 @@ app.get("/scrape", function(req, res) {
    
       var result = {};
 
-      result.title = $(this).children("a").children("div").children("div").children("h1").text(); 
+    
+
+      result.summary=$(this).children("a").children("div").children("div").children("p").text();
+
+      result.title = $(this).children("a").children("div").children("div").children("h1").text();
+
+       result.link="http://www.espn.com" + $(this).children("a").attr("href");
    
       
-      db.Article.create(result)
-        .then(function(dbArticle) {
+      db.Headline.create(result)
+        .then(function(dbHeadline) {
           
-          console.log(dbArticle);
+          console.log(dbHeadline);
           
         })
         .catch(function(err) {
@@ -58,29 +64,29 @@ app.get("/scrape", function(req, res) {
     });
 
     
-    res.send(articles);
+    res.send("Scraped!");
     
   });
 });
 
 
-app.get("/articles", function(req, res) {
-  db.Article.find({})
-  .then(function(dbArticle) {
-    res.json(dbArticle)
+app.get("/headlines", function(req, res) {
+  db.Headline.find({})
+  .then(function(dbHeadline) {
+    res.json(dbHeadline)
   })
   .catch(function(err) {
     res.json(err)
   })
 });
 
-app.get("/articles/:id", function(req, res) {
-  db.Article.findOne({
+app.get("/headlines/:id", function(req, res) {
+  db.Headline.findOne({
     _id: req.params.id})
  
   .populate("note")  
-  .then(function(dbArticle) {
-    res.json(dbArticle)
+  .then(function(dbHeadline) {
+    res.json(dbHeadline)
   }).catch(function(err) {
     res.json(err)
   })
@@ -88,14 +94,14 @@ app.get("/articles/:id", function(req, res) {
   })
   
 
-app.post("/articles/:id", function(req, res) {
+app.post("/headlines/:id", function(req, res) {
   db.Note.create(req.body)
   .then(function (dbNote) {
-  return db.Article.findOneAndUpdate({_id : req.params.id},
+  return db.Headline.findOneAndUpdate({_id : req.params.id},
     {note: dbNote._id}, {new: true}
     )
-    .then(function(dbArticle) {
-      res.json(dbArticle)
+    .then(function(dbHeadline) {
+      res.json(dbHeadline)
     })
     .catch(function(err) {
       res.json(err);

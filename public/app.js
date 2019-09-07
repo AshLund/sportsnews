@@ -1,6 +1,6 @@
-$.getJSON("/articles", function(data) {
-    for (var i = 0; i < 10; i++) {
-      $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />"  + "</p>");
+$.getJSON("/headlines", function(data) {
+    for (var i = 0; i <10; i++) {
+        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].summary + "</p>" +  "Read More:" + "<a href=" + data[i].link + "</a>");
     }
   });
 
@@ -10,7 +10,7 @@ $(document).on("click", "p", function () {
 
 $.ajax({
     method: "GET",
-    url: "/articles/" + thisId
+    url: "/headlines/" + thisId
 })
 .then(function(data) {
     console.log(data);
@@ -33,7 +33,7 @@ function() {
 
 $.ajax({
     method: "POST",
-    url: "/articles/" + thisId,
+    url: "/headlines/" + thisId,
     data: {
         title: $("#titleinput").val(),
         body: $("#bodyinput").val(),
