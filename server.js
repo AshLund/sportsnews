@@ -83,7 +83,7 @@ app.get('/', function(req, res, next) {
 
 app.get('/saved', function(req, res, next) {
   db.Headline.find(function(err, dbHeadline) {
-    res.render('saved', {title: "Saved", headlines: dbHeadline });
+    res.render('saved', {title: "Saved", saved: dbHeadline });
 });
 });
 
@@ -128,8 +128,8 @@ app.post("/headlines/:id", function(req, res) {
 
 });
 
-app.put("/articles/:id", function(req, res) {
-  db.Article.update({ _id: req.params.id },{ saved: req.body.saved})  
+app.put("/headlines/:id", function(req, res) {
+  db.Headline.update({ _id: req.params.id },{ saved: req.body.saved})  
   .then(function(data) {
     res.json(data);
   });

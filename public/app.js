@@ -4,23 +4,21 @@
 //     }
 //   });
 
-$(".save").on("click", function(event) {
-    event.preventDefault()
-    id = $(this).attr("data-id")
-    saveArticle()
-})
-
-function saveArticle(){
+$(document).on("click", ".save", function () {
+    var thisId = $(this).attr("data-id");
+    
     $.ajax({
         method: "PUT",
-        url: "/articles/" + id,
+        url: "/headlines/" + thisId,
         data: {
             saved: true
         }
     }).then(function() {
         location.reload()
     })
-}
+})
+
+
 
 
 
