@@ -1,8 +1,8 @@
-// $.getJSON("/headlines", function(data) {
-//     for (var i = 0; i <10; i++) {
-//         $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].summary + "</p>" +  "Read More:" + "<a href=" + data[i].link + "</a>");
-//     }
-//   });
+$.getJSON("/headlines", function(data) {
+    for (var i = 0; i <10; i++) {
+
+    }
+  });
 
 // $(document).on("click", "p", function () {
 //     $("#notes").empty();

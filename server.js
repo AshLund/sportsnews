@@ -37,7 +37,6 @@ app.set("view engine", "handlebars")
 mongoose.connect("mongodb://localhost/sportsnews", { useNewUrlParser: true });
 
 
-
 app.get("/scrape", function(req, res) {
   
   axios.get("http://www.espn.com").then(function(response) {
@@ -75,6 +74,13 @@ app.get("/scrape", function(req, res) {
     
   });
 });
+
+app.get('/', function(req, res, next) {
+  db.Headline.find(function(err, dbHeadline) {
+    res.render('index', {headlines: dbHeadline });
+});
+});
+
 
 
 app.get("/headlines", function(req, res) {
