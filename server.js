@@ -1,6 +1,9 @@
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+const exphbs = require("express-handlebars")
+
+var router = express.Router();
 
 
 
@@ -16,7 +19,8 @@ var PORT = 3000;
 var app = express();
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/sportsnews";
 
-
+// require("./routes/apiRoutes")(app);
+// require("./routes/htmlRoutes")(app);
 
 
 app.use(logger("dev"));
@@ -25,6 +29,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }))
+app.set("view engine", "handlebars")
 
 
 mongoose.connect("mongodb://localhost/sportsnews", { useNewUrlParser: true });
@@ -114,3 +121,4 @@ app.post("/headlines/:id", function(req, res) {
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
 });
+

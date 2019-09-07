@@ -9,11 +9,9 @@ var HeadlineSchema= new Schema ({
     },
     summary: {
         type: String,
-        required: true
     },
     title: {
         type: String,
-        required: true
     },
     note: [{
         type: Schema.Types.ObjectId,
