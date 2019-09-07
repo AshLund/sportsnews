@@ -18,6 +18,20 @@ $(document).on("click", ".save", function () {
     })
 })
 
+$(document).on("click", ".delete", function () {
+    var thisId = $(this).attr("data-id");
+    
+    $.ajax({
+        method: "PUT",
+        url: "/headlines/" + thisId,
+        data: {
+            saved: false
+        }
+    }).then(function() {
+        location.reload()
+    })
+})
+
 
 
 
