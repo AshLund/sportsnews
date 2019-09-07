@@ -83,7 +83,7 @@ app.get('/', function(req, res, next) {
 
 app.get('/saved', function(req, res, next) {
   db.Headline.find(function(err, dbHeadline) {
-    res.render('saved', {title: "Saved", saved: dbHeadline });
+    res.render('saved', {title: "Saved", headlines: dbHeadline });
 });
 });
 
