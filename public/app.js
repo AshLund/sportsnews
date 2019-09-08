@@ -69,7 +69,19 @@ $(document).on("click", ".addnote", function() {
       });
   
     $("#bodyinput").val("");
+    location.reload()
   });
+
+  $(document).on("click", "#deletenote", function() {
+    thisId=$(this).attr("data-id");
+
+    $ajax({
+      method: "DELETE",
+      url: "/headlines/" + thisId,
+    }).then(function() {
+      location.reload()
+    })
+  })
 
 
 

@@ -17,7 +17,7 @@ var PORT = 3000;
 
 // Initialize Express
 var app = express();
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://AshLund:Br3ttno4!@ds219308.mlab.com:19308/heroku_80tgfqxd"
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/sportsnews";
 
 
 
@@ -54,11 +54,11 @@ app.post("/scrape", function(req, res) {
 
     
 
-      result.summary=$(this).children("a").children("div").children("div").children("p").text();
+      var summary=$(this).children("a").children("div").children("div").children("p").text();
 
-      result.title = $(this).children("a").children("div").children("div").children("h1").text();
+      var title = $(this).children("a").children("div").children("div").children("h1").text();
 
-       result.link="http://www.espn.com" + $(this).children("a").attr("href");
+       var link="http://www.espn.com" + $(this).children("a").attr("href");
    
       
       db.Headline.create(result)
@@ -142,6 +142,15 @@ return db.Headline.findOneAndUpdate({_id : req.params.id},
   })
 
 });
+
+app.delete("/headlines/:id", function (req,res) {
+  db.Note.findOneAndDelete({_id: req.params.id})
+    .then(function(dbNote){
+      res.json(dbNote);
+    });
+  });
+
+
 
 app.put("/headlines/:id", function(req, res) {
   db.Headline.update({ _id: req.params.id },{ saved: req.body.saved})  
