@@ -17,7 +17,7 @@ var PORT = 3000;
 
 // Initialize Express
 var app = express();
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/sportsnews";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://AshLund:Br3ttno4!@ds219308.mlab.com:19308/heroku_80tgfqxd"
 
 
 
