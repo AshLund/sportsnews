@@ -19,6 +19,9 @@ var PORT = 3000;
 var app = express();
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/sportsnews";
 
+
+
+
 // require("./routes/apiRoutes")(app);
 // require("./routes/htmlRoutes")(app);
 
@@ -34,7 +37,8 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }))
 app.set("view engine", "handlebars")
 
 
-mongoose.connect("mongodb://localhost/sportsnews", { useNewUrlParser: true });
+
+mongoose.connect(MONGODB_URI);
 
 
 app.post("/scrape", function(req, res) {
