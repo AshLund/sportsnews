@@ -81,6 +81,12 @@ app.get('/', function(req, res, next) {
 });
 });
 
+app.get('/articles', function(req, res, next) {
+  db.Headline.find(function(err, dbHeadline) {
+    res.render('articles', {title: "Articles", headlines: dbHeadline });
+});
+});
+
 app.get('/saved', function(req, res, next) {
   db.Headline.find(function(err, dbHeadline) {
     res.render('saved', {title: "Saved", headlines: dbHeadline });
@@ -114,7 +120,7 @@ app.get("/headlines/:id", function(req, res) {
 app.post("/headlines/:id", function(req, res) {
   db.Note.create(req.body)
   .then(function (dbNote) {
-  return db.Headline.findOneAndUpdate({_id : req.params.id},
+return db.Headline.findOneAndUpdate({_id : req.params.id},
    {$push:  {note: dbNote._id}}, {new: true}
     )
     .then(function(dbHeadline) {

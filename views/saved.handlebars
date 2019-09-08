@@ -8,25 +8,20 @@
 <p> {{summary}}
 <a href ={{link}}> Read More! </a>
 </p>
- <button class="btn btn-success delete" data-id="{{id}}"> Delete this article </button>
 
- {{#each note}}
-   <p> Comment: {{title}} </p> 
-   <p>  {{body}} </p>
- {{/each}}
 
-<div class="form-group">
-    <label for="titleinput"><h6>Title</h6></label>
-        <input type="text" id="titleinput" class="form-control" aria-describedby="example-text" placeholder="Title of note">
-        </div>
-        <div class="form-group">
-        <label for="bodyinput"><h6> Article Notes</h6></label>
-        <textarea class="form-control" id="bodyinput" rows="2" aria-describedby="note-description" placeholder="Your Comment"></textarea>
-        </div>
-        <button id="savenote" data-id={{data._id}}>Submit</button>
-            </form>
-            <br>
-        </div>
+   <div id="notes"></div>
+
+
+  <button class="btn btn-success delete" data-id="{{id}}"> Delete This Article </button>
+
+<button class="btn btn-success notes"
+data-id="{{id}}"> Article Notes </button>
+              
+              
+{{#each note}}
+<p> Hello {{body}} </p>
+{{/each}}
 
  {{/if}}
 {{/each}}
