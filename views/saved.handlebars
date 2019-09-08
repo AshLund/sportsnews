@@ -10,17 +10,16 @@
 </p>
 
 
-   <div id="notes"></div>
 
 
+<div id="notes" data-id="{{id}}"> Test</div>
   <button class="btn btn-success delete" data-id="{{id}}"> Delete This Article </button>
-
-<button class="btn btn-success notes"
-data-id="{{id}}"> Article Notes </button>
+   <button class="btn btn-success addnote" data-id="{{id}}"> Add A Note </button>
+     
               
               
 {{#each note}}
-<p> Hello {{body}} </p>
+<p>  {{body}} </p>
 {{/each}}
 
  {{/if}}

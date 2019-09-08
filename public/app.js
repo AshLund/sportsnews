@@ -33,27 +33,28 @@ $(document).on("click", ".delete", function () {
 })
 
 
-$(document).on("click", "p", function() {
+$(document).on("click", ".addnote", function() {
     $("#notes").empty();
     var thisId = $(this).attr("data-id");
   
+  
     $.ajax({
       method: "GET",
-      url: "/headlines/" + thisId
+      url: "/headlines/" + thisId,
+      data: {
+        body:  $("#bodyinput").val()
+      }
     })
       .then(function(data) {
         console.log(data);
         $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
         $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
   
-        if (data.note) {
-          $("#bodyinput").val(data.note.body);
-        }
       });
   });
   
   $(document).on("click", "#savenote", function() {
-    var thisId = $(this).attr("data-id");
+     thisId = $(this).attr("data-id");
   
     $.ajax({
       method: "POST",
@@ -69,6 +70,8 @@ $(document).on("click", "p", function() {
   
     $("#bodyinput").val("");
   });
+
+
 
 
 

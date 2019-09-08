@@ -37,7 +37,7 @@ app.set("view engine", "handlebars")
 mongoose.connect("mongodb://localhost/sportsnews", { useNewUrlParser: true });
 
 
-app.get("/scrape", function(req, res) {
+app.post("/scrape", function(req, res) {
   
   axios.get("http://www.espn.com/nfl").then(function(response) {
  
@@ -87,10 +87,16 @@ app.get('/articles', function(req, res, next) {
 });
 });
 
-app.get('/saved', function(req, res, next) {
-  db.Headline.find(function(err, dbHeadline) {
+app.get('/saved', function(req, res) {
+  db.Headline.find({})
+  .populate("note")
+  .then(function(dbHeadline){
     res.render('saved', {title: "Saved", headlines: dbHeadline });
-});
+  })
+  .catch(function(err) {
+    res.json(err);
+  })
+    
 });
 
 
@@ -119,12 +125,12 @@ app.get("/headlines/:id", function(req, res) {
 
 app.post("/headlines/:id", function(req, res) {
   db.Note.create(req.body)
-  .then(function (dbNote) {
+  .then(function(dbNote) {
 return db.Headline.findOneAndUpdate({_id : req.params.id},
    {$push:  {note: dbNote._id}}, {new: true}
     )
     .then(function(dbHeadline) {
-      res.json(dbHeadline)
+      res.json(dbNote)
     })
     .catch(function(err) {
       res.json(err);
