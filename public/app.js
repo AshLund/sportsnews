@@ -77,7 +77,7 @@ $(document).on("click", ".addnote", function() {
 
     $ajax({
       method: "DELETE",
-      url: "/headlines/" + thisId,
+      url: "/notes/" + thisId,
     }).then(function() {
       location.reload()
     })
