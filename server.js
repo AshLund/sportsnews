@@ -101,7 +101,6 @@ app.get("/headlines", function(req, res) {
 app.get("/headlines/:id", function(req, res) {
   db.Headline.findOne({
     _id: req.params.id})
- 
   .populate("note")  
   .then(function(dbHeadline) {
     res.json(dbHeadline)
@@ -116,7 +115,7 @@ app.post("/headlines/:id", function(req, res) {
   db.Note.create(req.body)
   .then(function (dbNote) {
   return db.Headline.findOneAndUpdate({_id : req.params.id},
-    {note: dbNote._id}, {new: true}
+   {$push:  {note: dbNote._id}}, {new: true}
     )
     .then(function(dbHeadline) {
       res.json(dbHeadline)
