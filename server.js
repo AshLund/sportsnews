@@ -156,6 +156,6 @@ app.put("/headlines/:id", function(req, res) {
   });
 });
 
-app.listen(PORT, function() {
+server.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
 });
