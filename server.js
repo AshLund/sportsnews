@@ -24,7 +24,7 @@ app.set("view engine", "handlebars")
 mongoose.connect(MONGODB_URI);
 
 
-app.post("/scrape", function(req, res) {
+app.get("/scrape", function(req, res) {
   
   axios.get("http://www.espn.com/nfl").then(function(response) {
  
