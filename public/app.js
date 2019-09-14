@@ -67,15 +67,15 @@ $(document).on("click", ".addnote", function() {
         console.log(data);
         $("#notes").empty();
       });
-  
+      location.reload()
     $("#bodyinput").val("");
-    location.reload()
+  
   });
 
-  $(document).on("click", "#deletenote", function() {
+  $(document).on("click", ".deletenote", function() {
     thisId=$(this).attr("data-id");
-
-    $ajax({
+    console.log(thisId)
+    $.ajax({
       method: "DELETE",
       url: "/notes/" + thisId,
     }).then(function() {
