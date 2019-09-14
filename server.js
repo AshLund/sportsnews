@@ -57,7 +57,7 @@ app.get("/scrape", function(req, res) {
     });
 
     
-    res.send("Scraped!");
+    res.redirect("/articles");
     
   });
 });
