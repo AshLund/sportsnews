@@ -37,11 +37,11 @@ app.get("/scrape", function(req, res) {
 
     
 
-      var summary=$(this).children("a").children("div").children("div").children("p").text();
+      result.summary=$(this).children("a").children("div").children("div").children("p").text();
 
-      var title = $(this).children("a").children("div").children("div").children("h1").text();
+      result.title = $(this).children("a").children("div").children("div").children("h1").text();
 
-       var link="http://www.espn.com" + $(this).children("a").attr("href");
+       result.link="http://www.espn.com" + $(this).children("a").attr("href");
    
       
       db.Headline.create(result)
