@@ -2,26 +2,12 @@ var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 const exphbs = require("express-handlebars")
-
-var router = express.Router();
-
-
-
 var axios = require("axios");
 var cheerio = require("cheerio");
-
-// Require all models
 var db = require("./models");
-
 var PORT = process.env.PORT || 3000;
-
-// Initialize Express
 var app = express();
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/sportsnews";
-
-
-
-
 
 app.use(logger("dev"));
 
